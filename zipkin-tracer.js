@@ -1,5 +1,6 @@
 const { HttpLogger } = require('zipkin-transport-http');
-const { Tracer, BatchRecorder, ExplicitContext } = require('zipkin');
+const { Tracer, BatchRecorder } = require('zipkin');
+const AsyncContext = require('@hpidcock/zipkin-context-async-hooks');
 
 module.exports = localServiceName => {
     let recorder;
@@ -17,7 +18,7 @@ module.exports = localServiceName => {
     }
 
     return new Tracer({
-        ctxImpl: new ExplicitContext(),
+        ctxImpl: AsyncContext,
         recorder,
         localServiceName,
     });
