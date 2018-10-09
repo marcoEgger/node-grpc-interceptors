@@ -37,14 +37,21 @@ const handler = {
                     const first = interceptors.next();
                     if (!first.value) { // if we don't have any interceptors
                         return new Promise(resolve => {
-                            return resolve(fn(call, newCallback(callback)));
+                            fn(call, newCallback((...args) => {
+                                resolve();
+                                return callback(...args);
+                            }));
                         });
                     }
                     first.value(ctx, function next() {
                         return new Promise(resolve => {
                             const i = interceptors.next();
                             if (i.done) {
-                                return resolve(fn(call, newCallback(callback)));
+                                fn(call, newCallback((...args) => {
+                                    resolve();
+                                    return callback(...args);
+                                }));
+                                return;
                             }
                             return resolve(i.value(ctx, next));
                         });
