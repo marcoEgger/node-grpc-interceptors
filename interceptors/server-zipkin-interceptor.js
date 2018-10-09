@@ -22,7 +22,7 @@ const zipkinInterceptor = async function (ctx, next) {
     }
 
     const id = instrumentation.recordRequest(
-        ctx.service.method,
+        ctx.service.path,
         ctx.service.path,
         readHeader
     );
