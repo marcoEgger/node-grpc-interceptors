@@ -1,6 +1,6 @@
 {
   "name": "@hpidcock/node-grpc-interceptors",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "test": "jest",
     "lint": "eslint . --fix",
