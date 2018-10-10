@@ -53,7 +53,7 @@ test('zipkin-interceptor', done => {
                 expect(body).toHaveProperty('id');
                 expect(body.id).toBe(body.traceId);
                 expect(body).toHaveProperty('name');
-                expect(body.name).toBe('greet');
+                expect(body.name).toBe('/test.messenger/greet');
                 expect(body).toHaveProperty('annotations');
                 expect(body.annotations).toHaveLength(2);
                 expect(body.annotations[0].value).toBe(t.annotations[0].value);
