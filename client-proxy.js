@@ -1,3 +1,5 @@
+const grpc = require('grpc');
+
 const handler = {
 
     // set up the proxy get handler
@@ -27,15 +29,33 @@ const handler = {
         // insert the zipkin client interceptor into the call
         return function (...args) {
 
-            let message, options, callback;
+            let message, metadata, options, callback;
 
-            if (args.length >= 3) {
-                message = args[0];
-                options = args[1];
-                callback = args[2];
-            } else {
-                message = args[0] || undefined;
-                callback = args[1] || undefined;
+            for (let i = 0; i < args.length; i++) {
+                switch (i) {
+                case 0:
+                    message = args[0];
+                    break;
+                case 1:
+                    if (args[1] instanceof grpc.Metadata) {
+                        metadata = args[1];
+                    } else {
+                        options = args[1];
+                    }
+                    break;
+                case 2:
+                    if (args[2] instanceof Function) {
+                        callback = args[2];
+                    } else {
+                        options = args[2];
+                    }
+                    break;
+                case 3:
+                    callback = args[3];
+                    break;
+                default:
+                    break;
+                }
             }
 
             if (!options) {
@@ -48,7 +68,7 @@ const handler = {
 
             options.interceptors = options.interceptors.concat(target.interceptors);
 
-            return origFunc.call(target, message, options, callback);
+            return origFunc.call(target, message, metadata, options, callback);
 
         };
 
