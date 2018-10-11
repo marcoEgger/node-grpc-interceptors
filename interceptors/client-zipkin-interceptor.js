@@ -12,6 +12,7 @@ module.exports = tracer => {
                     options.method_definition.path,
                     options.method_definition.path,
                 );
+                const id = tracer.id;
 
                 for(const k in headers) {
                     metadata.add(k, headers[k]);
@@ -26,9 +27,9 @@ module.exports = tracer => {
                     },
                     onReceiveStatus: (status, next) => {
                         if (status.code !== grpc.status.OK) {
-                            instrumentation.recordError(tracer.id, status.details);
+                            instrumentation.recordError(id, status.details);
                         } else {
-                            instrumentation.recordResponse(tracer.id, status.code);
+                            instrumentation.recordResponse(id, status.code);
                         }
                         next(status);
                     },

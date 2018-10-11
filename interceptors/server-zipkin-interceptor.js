@@ -2,7 +2,8 @@ const { option, Instrumentation } = require('zipkin');
 
 module.exports = tracer => {
     return async function (ctx, next) {
-        const instrumentation = new Instrumentation.HttpServer({ tracer });
+        const port = 0;
+        const instrumentation = new Instrumentation.HttpServer({ tracer, port });
 
         function readHeader(header) {
             const val = ctx.call.metadata.get(header);
