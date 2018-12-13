@@ -26,10 +26,12 @@ module.exports = tracer => {
                         next(message);
                     },
                     onReceiveStatus: (status, next) => {
-                        if (status.code !== grpc.status.OK) {
-                            instrumentation.recordError(id, status.details);
-                        } else {
-                            instrumentation.recordResponse(id, status.code);
+                        if (status) {
+                            if (status.code !== grpc.status.OK) {
+                                instrumentation.recordError(id, status.details);
+                            } else {
+                                instrumentation.recordResponse(id, status.code);
+                            }
                         }
                         next(status);
                     },

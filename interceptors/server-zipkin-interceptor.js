@@ -22,10 +22,14 @@ module.exports = tracer => {
         try {
             await next();
         } catch(err) {
-            instrumentation.recordResponse(id, ctx.status.code, err);
+            if (ctx && ctx.status) {
+                instrumentation.recordResponse(id, ctx.status.code, err);
+            }
             throw err;
         }
 
-        instrumentation.recordResponse(id, ctx.status.code);
+        if (ctx && ctx.status) {
+            instrumentation.recordResponse(id, ctx.status.code);
+        }
     };
 };
