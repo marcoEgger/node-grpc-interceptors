@@ -1,11 +1,11 @@
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 
 const handler = {
 
     // set up the proxy get handler
     get(target, propKey) {
 
-    // store the original func being called
+        // store the original func being called
         const origFunc = target[propKey];
 
         // IMPORTANT - we only want to intercept gRPC request functions!
