@@ -1,13 +1,13 @@
 {
   "name": "@coozzy/node-grpc-interceptors",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "test": "jest",
     "lint": "eslint . --fix",
     "depcheck": "depcheck --ignores=eslint-config-plugin:*"
   },
   "dependencies": {
-    "@grpc/grpc-js": "1.6.7",
+    "@grpc/grpc-js": "1.8.4",
     "@hpidcock/zipkin-context-async-hooks": "0.0.5",
     "zipkin": "^0.22.0",
     "zipkin-transport-http": "^0.22.0"

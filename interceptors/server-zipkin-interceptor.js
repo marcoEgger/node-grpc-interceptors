@@ -16,7 +16,7 @@ module.exports = tracer => {
         const id = instrumentation.recordRequest(
             ctx.service.path,
             ctx.service.path,
-            readHeader
+            readHeader,
         );
 
         try {
